@@ -1,11 +1,15 @@
 ;User Input
+
+;Uninitialize data
 section .bss
   input resb 100
 
+;Initialize data
 section .data
   prompt db "User Input: ", 0
   prompt_len equ $ - prompt
 
+;Holds executable codes
 section .text
   global _start
 
