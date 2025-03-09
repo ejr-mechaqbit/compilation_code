@@ -139,3 +139,36 @@ _start:
 ```
 Now we successfully import and export function.
 
+### 4. Exercise
+For the exercise is the combination of printing string, reading input and
+print it back to the console, import and export function.
+of function
+
+### Recap
+
+- Printing text
+- Reading input
+- Import or export function
+- Uninitialize data
+```
+  section .bss
+    ; Uninitialize data or variables
+```
+- Initialize data
+```
+  section .data
+    ; Initialize data or varaibles
+```
+- Global and External functions
+```
+  section .text
+    ; Global and External functions
+```
+- And a few mnemonics in assembly
+  - `mov`
+  - `xor`
+  - `call`
+  - `syscall`
+  - `ret`
+
+
