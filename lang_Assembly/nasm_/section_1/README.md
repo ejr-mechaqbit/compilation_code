@@ -22,11 +22,11 @@ Implement a functionality to display the initialize data it must be done
 inside the entry point function.
 ```
   ; Print msg1
-  mov rax, 1 ; system call: sys_write
-  mov rdi, 1 ; file descriptor: stdout
-  mov rsi, msg1 ; move msg1 to rsi(source index)
+  mov rax, 1        ; system call: sys_write
+  mov rdi, 1        ; file descriptor: stdout
+  mov rsi, msg1     ; move msg1 to rsi(source index)
   mov rdx, msg1_len ; move msg1_len to rdx(data/extended space accumulator)
-  syscall ; execute system call
+  syscall           ; execute system call
 ```
 This line of code will print or display the "Hello, World!" to the console.
 
@@ -47,18 +47,18 @@ console. It can be done inside a function or directly to entry point
 function.
 ```
   ; Read input
-  mov rax, 0 ; system call: sys_read
-  mov rdi, 0 ; file descriptor: stdin
-  mov rsi, input ; move input to rsi
-  mov rdx, 100 ; move 100 to rdx
-  syscall ; execute system call
+  mov rax, 0          ; system call: sys_read
+  mov rdi, 0          ; file descriptor: stdin
+  mov rsi, input      ; move input to rsi
+  mov rdx, 100        ; move 100 to rdx
+  syscall             ; execute system call
 
   ; Print user input
-  mov rax, 1 ; system call: sys_write
-  mov rdi, 1 ; file descriptor: stdout
-  mov rsi, input ; move input to rsi
-  mov rdx, 100 ; move 100 to rdx
-  syscall ; execute system call
+  mov rax, 1          ; system call: sys_write
+  mov rdi, 1          ; file descriptor: stdout
+  mov rsi, input      ; move input to rsi
+  mov rdx, 100        ; move 100 to rdx
+  syscall             ; execute system call
 ```
 This line of codes will read and print the user input.
 
@@ -99,8 +99,8 @@ Example a utility.asm file have 2 function print and exit.
 ; This is a utility.asm file
 ; In section .text globalize functions
 section .text
-  global print ; exporting print function
-  global exit ; exporting exit function
+  global print    ; exporting print function
+  global exit     ; exporting exit function
 
 print: ; function name
   mov rax, 1
@@ -109,10 +109,10 @@ print: ; function name
   ret ; return to caller
 
 exit: ; function name
-  mov rax, 60 ; system call: sys_exit
-  xor rdi, rdi ; exit status 0
-  syscall ; execute system call
-  ret ; return to caller
+  mov rax, 60     ; system call: sys_exit
+  xor rdi, rdi    ; exit status 0
+  syscall         ; execute system call
+  ret             ; return to caller
 ```
 
 Use this function inside to your main file where your entry point function
