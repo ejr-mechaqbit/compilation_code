@@ -22,11 +22,11 @@ Implement a functionality to display the initialize data it must be done
 inside the entry point function.
 ```
   ; Print msg1
-  mov rax, 1
-  mov rdi, 1
-  mov rsi, msg1
-  mov rdx, msg1_len
-  syscall
+  mov rax, 1 ; system call: sys_write
+  mov rdi, 1 ; file descriptor: stdout
+  mov rsi, msg1 ; move msg1 to rsi(source index)
+  mov rdx, msg1_len ; move msg1_len to rdx(data/extended space accumulator)
+  syscall ; execute system call
 ```
 This line of code will print or display the "Hello, World!" to the console.
 
@@ -47,18 +47,18 @@ console. It can be done inside a function or directly to entry point
 function.
 ```
   ; Read input
-  mov rax, 0
-  mov rdi, 0
-  mov rsi, input
-  mov rdx, 100
-  syscall
+  mov rax, 0 ; system call: sys_read
+  mov rdi, 0 ; file descriptor: stdin
+  mov rsi, input ; move input to rsi
+  mov rdx, 100 ; move 100 to rdx
+  syscall ; execute system call
 
   ; Print user input
-  mov rax, 1
-  mov rdi, 1
-  mov rsi, input
-  mov rdx, 100
-  syscall
+  mov rax, 1 ; system call: sys_write
+  mov rdi, 1 ; file descriptor: stdout
+  mov rsi, input ; move input to rsi
+  mov rdx, 100 ; move 100 to rdx
+  syscall ; execute system call
 ```
 This line of codes will read and print the user input.
 
@@ -77,7 +77,7 @@ print_user_input:
   mov rsi, input
   mov rdx, input_len
   syscall
-  ret
+  ret ; return to caller
 ```
 To use the local function just `call print_user_input`.
 Example utilizing local function inside the entry point function or
@@ -99,20 +99,20 @@ Example a utility.asm file have 2 function print and exit.
 ; This is a utility.asm file
 ; In section .text globalize functions
 section .text
-  global print
-  global exit
+  global print ; exporting print function
+  global exit ; exporting exit function
 
-print:
+print: ; function name
   mov rax, 1
   mov rdi, 1
   syscall
-  ret
+  ret ; return to caller
 
-exit:
-  mov rax, 60
-  xor rdi, rdi
-  syscall
-  ret
+exit: ; function name
+  mov rax, 60 ; system call: sys_exit
+  xor rdi, rdi ; exit status 0
+  syscall ; execute system call
+  ret ; return to caller
 ```
 
 Use this function inside to your main file where your entry point function
