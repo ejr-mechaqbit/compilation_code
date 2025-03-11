@@ -28,7 +28,7 @@
       - `rsi`
       - `rdi`
     - (additional in x86-64)
-      - `r8` to `r15i`
+      - `r8` to `r15`
     - Registers can be accessed as 64-bit, 32-bit, 16-bit, or 8-bit:
       - `rax` (64-bit)
       - `eax` (32-bit)
