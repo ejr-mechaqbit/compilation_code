@@ -175,3 +175,132 @@
   |Compatibility       |Runs on x86 CPUs     |Runs both x86-64 & x86 programs |
 
 
+### x86-64 Registers Overview
+- In x86-64 architecture, registers are categorized into General-Purpose
+  Registers (GPRs), Special-Purpose Registers, Segment Registers and Flags
+  Register. These registers are crucial for excuting instructions, storing
+  data, and managing system operations.
+
+#### 1. General-Purpose Registers (GPRs)
+These registers are used for arithmetic operations, data storage, and
+passing function parameters.
+
+|Register |64-bit     |32-bit       |16-bit       |8-bit        |Description                                          |
+|---------|-----------|-------------|-------------|-------------|-----------------------------------------------------|
+|RAX      |`rax`      |`eax`        |`ax`         |`al`/`ah`    |Accumulator or (used in arithmetic and system calls) |
+|RBX      |`rbx`      |`ebx`        |`bx`         |`bl`/`bh`    |Base register (used for addressing memory)           |
+|RCX      |`rcx`      |`ecx`        |`cx`         |`cl`/`ch`    |Counter (used in loops and shifts)                   |
+|RDX      |`rdx`      |`edx`        |`dx`         |`dl`/`dh`    |Data register (used in multiplication, division, I/O)|
+|RSI      |`rsi`      |`esi`        |`si`         |`sil`        |Source index (used for string operations)            |
+|RDI      |`rdi`      |`edi`        |`di`         |`dil`        |Destination index (used for string operations)       |
+|RBP      |`rbp`      |`ebp`        |`bp`         |`bpl`        |Base pointer (used in stack frames)                  |
+|RSP      |`rsp`      |`esp`        |`sp`         |`spl`        |Stack pointer (points to top of the stack)           |
+|R8 - R15 |`r8`-`r15` |`r8d`-`r15d` |`r8w`-`r15w` |`r8b`-`r15b` |Additional registers (introduced in x86-64)          |
+
+- [x] Example: Using GPRs in Assembly
+```assembly
+section .text
+  global _start
+
+_start:
+  mov rax, 10     ; Store 10 in rax
+  add rax, 5      ; Add 5 to rax (now rax = 15)
+  mov rbx, rax    ; Copy rax value to rbx
+
+  mov rax, 60     ; sys_exit
+  xor rdi, rdi    ; exit code 0
+  syscall
+```
+
+#### 2. Special-Purpose Registers
+These registers control CPU operations, memory management, and instruction
+execution.
+
+|Register                      |Description                                                      |
+|------------------------------|-----------------------------------------------------------------|
+|RIP (Instruction Pointer)     |Holds the memory address of the next instruction to execute      |
+|RFLAGS (Flags Register)       |Stores status flags (zero flag, carry flag, overflow flag, etc.) |
+|RSP (Stack Pointer)           |Points to the current stack position                             |
+|RBP (Base Pointer)            |Used for referencing stack frames                                |
+|CR0-CR4 (Control Registers)   |Used for memory protection, virtual memory, and system control   |
+|XMM0-XMM15                    |SSE vector registers for floating-point and SIMD operations      |
+|YMM0-YMM15                    |AVX vector registers (for wider 256-bit SIMD operations)         |
+
+- [x] Example: Using the Instruction Pointer (RIP)
+```assembly
+section .data
+  message db "Hello, World!", 0
+
+section .text
+  global _start
+
+_start:
+  mov rax, 1        ; sys_write
+  mov rdi, 1        ; stdout
+  mov rsi, message  ; load address of message
+  mov rdx, 13       ; message length
+  syscall           ; system call
+
+  mov rax, 60       ; sys_exit
+  xor rdi, rdi      ; exit code 0
+  syscall
+```
+
+#### 3. Segment Registers
+Segment registers are mostly used for **compatibility with older x86
+systems*. They define segments in memory for **code, data, stack, and extra
+data**.
+
+|Register             |Description                                            |
+|---------------------|-------------------------------------------------------|
+|CS (Code Segment)    |Holds the segment for executing instructions           |
+|DS (Data Segment)    |Points to general-purpose data storage                 |
+|SS (Stack Segment)   |Points to the stack memory segment                     |
+|ES (Extra Segment)   |Used for additional data segment (legacy use)          |
+|FS, GS               |Used for thread-local storage and special OS structures|
+
+- [x] Example: Using FS/GS for Thread-Local Storage
+```assembly
+mov rax, qword [fs:0]     ; load thread-specific data
+```
+
+#### 4. Flags Register (RFLAGS)
+The RFLAGS register contains various status and control flags that affect
+how instructions execute.
+
+**Common Flags in RFLAGS**
+|Flag               |Bit  |Decription                                             |
+|-------------------|-----|-------------------------------------------------------|
+|ZF (Zero Flag)     |6    |Set if result of an operation is zero                  |
+|CF (Carry Flag)    |0    |Set if an arithmetic operation generates a carry/borrow|
+|OF (Overflow Flag) |11   |Set if signed arithmetic overflows                     |
+|SF (Sign Flag)     |7    |Set if result is negative                              |
+|PF (Parity Flag)   |2    |Set if number of set bits in the result is even        |
+|DF (Direction Flag)|10   |Determines the direction of string operations          |
+|IF (Interrupt Flag)|9    |Enables/disables hardware interrupts                   |
+
+- [x] Example: Checking the Zero Flag
+```assembly
+section .text
+  global _start
+
+_start:
+  mov rax, 5
+  sub rax, 5        ; rax becomes 0
+  jz exit           ; jump if Zero Flag (ZF) is set
+
+exit:
+  mov rax, 60       ; sys_exit
+  xor rdi, rdi      ; exit code 0
+  syscall
+```
+Here, `jz exit` jumps to exit if the result of sub rax, 5 is zero.
+
+#### 5. Summary Table
+|Register Type            |Example                            |Purpose                               |
+|-------------------------|-----------------------------------|--------------------------------------|
+|General-Purpose Register |RAX, RBX, RCX, RDX, R8-R15         |Store values, pass function arguments |
+|Special-Purpose Register |RIP, RSP, RBP, CR0-CR4, XMM0-XMM15 |Control execution, manage memory      |
+|Segment Registers        |CS, DS, SS, FS, GS                 |Define memory segments (legacy)       |
+|Flags Register           |RFLAGS (ZF, CF, OF, SF, DF, IF)    |Store status flags for CPU operation  |
+
