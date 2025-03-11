@@ -11,12 +11,12 @@
     high-performance computing systems.
 
 ####  1. Key Features of x86-64
-  [x] 64-bit Registers and Memory Addressing
+  - [x] 64-bit Registers and Memory Addressing
     - Supports 64-bit general-purpose registers (GPRs).
     - Can directly address 16 exabytes (2^64 bytes) of memory, but practical
       limits are much lower.
     - Provides backward compatibility with 32-bit x86 program (IA-32 mode).
-  [x] More General-Purpose Registers (GPRs)
+  - [x] More General-Purpose Registers (GPRs)
     - x86-64 adds 8 extra GPRs, making a total of 16 registers:
     - (x86)
       - `rax` 
@@ -34,7 +34,7 @@
       - `eax` (32-bit)
       - `ax` (16-bit)
       - `ah` / `al` (8-bit)
-  [x] Improved Calling Conventions
+  - [x] Improved Calling Conventions
     - Uses the System V AMI for Linux/macOS and Microsoft x64 ABI for
       Windows.
     - Function parameters are passed in registers instead of the stack:
@@ -42,7 +42,7 @@
         `rsi`, `rdx`, `rcx`, `r8`, `r9`.
       - Microsoft x64 ABI (Windows): First four arguments 'n `rcx`, `rdx`,
         `r8`, `r9`.
-  [x] Additional Instructions and Features
+  - [x] Additional Instructions and Features
     - SSE (Streaming SIMD Extension) and AVX (Advanced Vector Extensions)
       for optimized floating-point and vector processing.
     - RIP-relative addressing simplifies position-independent code.
@@ -67,7 +67,7 @@
   |Flags Register                  |`rflags` (Contains status flags like Zero Flag, Carry Flag)                  |
   |Segment Registers               |`cs`, `ds`, `es`, `fs`, `gs`, `ss`, (Mainly for compatibility with older x86 |
 
-  [x] Example: Accessing Registers in Assembly
+  - [x] Example: Accessing Registers in Assembly
   ```assembly
   section .text
     global _start
@@ -95,7 +95,7 @@
   5. Indexed Addressing:
     - `mov rax, [rbx + rcx*4]` (Access array elements)
 
-  [x] Example: Accessing Memory
+  - [x] Example: Accessing Memory
   ```assembly
   section .data
     value dq 42       ;Define a 64-bit integer in memory
@@ -117,7 +117,7 @@
   - Arguments are passed in `rdi`, `rsi`, `rdx`, `r10`, `r8`, `r9`.
   - The syscall instruction calls the kernel.
 
-  [x] Example: Writing to stdout
+  - [x] Example: Writing to stdout
   ```assembly
   section .data
     msg db "Hello, x86-64!", 0
@@ -143,7 +143,7 @@
   - `call` pushes the return address onto the stack and jumps to a function.
   - `ret` pops the return address and return to the caller.
 
-  [x] Example: Function Call in Assembly
+  - [x] Example: Function Call in Assembly
   ```assembly
   section .text
     global _start
