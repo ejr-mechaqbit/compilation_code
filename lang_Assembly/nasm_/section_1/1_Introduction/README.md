@@ -8,32 +8,20 @@
   - Relationship between Assembly and Machine Code
   - Assembly vs. High-Level language
 
-  ## What is Assembly?
-    - Assembly is a low-level programming language that is closely related
-      to machine code, the binary instructions executed directly by a
-      computer's CPU. It provides a human-readable representation of machine
-      instruction using mnemonics (e.g., `mov`, `add`, `jmp`) instead of raw
-      binary or hexadecimal numbers.
+## What is Assembly?
+  - Assembly is a low-level programming language that is closely related to machine code, the binary instructions executed directly by a computer's CPU. It provides a human-readable representation of machine instruction using mnemonics (e.g., `mov`, `add`, `jmp`) instead of raw binary or hexadecimal numbers.
 
-  ### Key features of Assembly language:
-    - Hardware-Specific
-      - Each CPU architecture has its own Assembly language, meaning code
-        written for one architecture won't work on another without
-        modification.
-    - Efficient & Fast
-      - Since it directly translates to machine code, Assembly is highly
-        efficient and used for performance-critical applications.  
-    - Low-Level Control
-      - It allow direct manipulation of register, memory and CPU
-        instructions, making it ideal for systems programming, embedded
-        systems, and operating system development.
-    - Minimal Abstraction
-      - Unlike high-level languages, Assembly has minimal built-in
-        abstractions, requiring the programmer to manage memory and CPU
-        resoures manually.
-    - Assembler Required
-      - Assembly code must be translated into machine code using an
-        assembler like: NASM, MASM, GAS, FASM, TASM.
+### Key features of Assembly language:
+  - Hardware-Specific
+    - Each CPU architecture has its own Assembly language, meaning code written for one architecture won't work on another without modification.
+  - Efficient & Fast
+    - Since it directly translates to machine code, Assembly is highly efficient and used for performance-critical applications.  
+  - Low-Level Control
+    - It allow direct manipulation of register, memory and CPU instructions, making it ideal for systems programming, embedded systems, and operating system development.
+  - Minimal Abstraction
+    - Unlike high-level languages, Assembly has minimal built-in abstractions, requiring the programmer to manage memory and CPU resoures manually.
+  - Assembler Required
+    - Assembly code must be translated into machine code using an assembler like: NASM, MASM, GAS, FASM, TASM.
 
       Example: (x86-64 Assembly using NASM)
 
