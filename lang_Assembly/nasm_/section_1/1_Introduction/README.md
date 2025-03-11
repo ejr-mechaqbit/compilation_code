@@ -140,12 +140,10 @@
 
   1011 1000 0000 0101 (in binary)
   ```
-
   - Here, `mov ax, 5` is a mnemonic representation of the machine code `B8 05 00`.
   
 2. Assembly is Human-readable, Machine Code is Binary
   - Assembly uses mnemonics (e.g., `mov`, `add`, `jmp`) that are easier to understand.
-
   - Machine code is in binary or hexadecimal, which is difficult for humans to read directly.
   
 3. Assemblers Convert Assembly to Machine Code
@@ -203,9 +201,9 @@
   This binary representation is what the CPU actually executes.
 
 ## Assembly vs High-Level Language (HLL)
-  - Assembly and high-level programming language (HLLs) serve different purposes and have distinct characteristics.
+- Assembly and high-level programming language (HLLs) serve different purposes and have distinct characteristics.
 
-  1. Level of Abstraction
+1. Level of Abstraction
   - Assembly Language
     - Low-level, close to machine code. Requires direct control over CPU
       registers, memory and hardware.
@@ -247,20 +245,20 @@
   Difference: The C language version is more readable and doesn't require
   direct memory manipulation.
 
-  2. Readability and Ease of Use
+2. Readability and Ease of Use
   - Assembly language
     - Hard to read, requires knowledge of CPU architecture.
   - High-level language
     - Easier to write and understand.
 
-  3. Portability
+3. Portability
   - Assembly language
     - CPU-dependent (e.g., x86-64 Assembly won't work on ARM).
   - High-level language
     - Platform-independent (C, Python, Java can run on different CPUs with
       re-compilation or interpretation).
 
-  4. Performance
+4. Performance
   - Assembly language
     - Faster, since it's directly translated to machine code.
   - High-level language
@@ -278,7 +276,7 @@
   ```
   The high-level language provides built-in functions like qsort().
 
-  5. Memory Management
+5. Memory Management
   - Assembly language
     - Full control, but requires manual memory handling.
   - High-level language
