@@ -204,89 +204,83 @@
 - Assembly and high-level programming language (HLLs) serve different purposes and have distinct characteristics.
 
 1. Level of Abstraction
-  - Assembly Language
-    - Low-level, close to machine code. Requires direct control over CPU
-      registers, memory and hardware.
-  - High-Level Language
-    - Abstracts hardware details, allowing developers to focus on logic
-      rather than hardware-specific instructions.
+- Assembly Language
+  - Low-level, close to machine code. Requires direct control over CPU registers, memory and hardware.
+- High-Level Language
+  - Abstracts hardware details, allowing developers to focus on logic rather than hardware-specific instructions.
 
   Example:
 
-  - Assembly (x86-64 using NASM)
-  ```assembly
-  section .data
-    msg db "Hello, World!", 0
+- Assembly (x86-64 using NASM)
+```assembly
+section .data
+  msg db "Hello, World!", 0
 
-  section .text
-    global _start
+section .text
+  global _start
 
-  _start:
-    mov rax, 1    ; sys_write
-    mov rdi, 1    ; stdout
-    mov rsi, msg  ; message address
-    mov rdx, 13   ; message length
-    syscall       ; system call or call kernel
+_start:
+  mov rax, 1    ; sys_write
+  mov rdi, 1    ; stdout
+  mov rsi, msg  ; message address
+  mov rdx, 13   ; message length
+  syscall       ; system call or call kernel
 
-    mov rax, 60   ; sys_exit
-    xor rdi, rdi  ; exit code 0
-    syscall
-  ```
+  mov rax, 60   ; sys_exit
+  xor rdi, rdi  ; exit code 0
+  syscall
+```
 
-  - High-Level Language (C language)
-  ```c
-  #includ <stdio.h>
+- High-Level Language (C language)
+```c
+#includ <stdio.h>
 
-  int main() {
-    printf("Hello, World!\n");
-    return 0;
-  }
-  ```
-  Difference: The C language version is more readable and doesn't require
-  direct memory manipulation.
+int main() {
+  printf("Hello, World!\n");
+  return 0;
+}
+```
+Difference: The C language version is more readable and doesn't require direct memory manipulation.
 
 2. Readability and Ease of Use
-  - Assembly language
-    - Hard to read, requires knowledge of CPU architecture.
-  - High-level language
-    - Easier to write and understand.
+- Assembly language
+  - Hard to read, requires knowledge of CPU architecture.
+- High-level language
+  - Easier to write and understand.
 
 3. Portability
-  - Assembly language
-    - CPU-dependent (e.g., x86-64 Assembly won't work on ARM).
-  - High-level language
-    - Platform-independent (C, Python, Java can run on different CPUs with
-      re-compilation or interpretation).
+- Assembly language
+  - CPU-dependent (e.g., x86-64 Assembly won't work on ARM).
+- High-level language
+  - Platform-independent (C, Python, Java can run on different CPUs with re-compilation or interpretation).
 
 4. Performance
-  - Assembly language
-    - Faster, since it's directly translated to machine code.
-  - High-level language
-    - Slightly slower due to abstraction but optimized by compilers (e.g.,
-      GCC, LLVM).
+- Assembly language
+  - Faster, since it's directly translated to machine code.
+- High-level language
+  - Slightly slower due to abstraction but optimized by compilers (e.g., GCC, LLVM).
 
-  Example:
-  - Assembly (requires manual sorting logic)
-  - C language
-  ```c
-  #include <stdlib.h>
+Example:
+- Assembly (requires manual sorting logic)
+- C language
+```c
+#include <stdlib.h>
 
-  int arr[] = {5, 2, 9, 1, 5, 6};
-  qsort(arr, 6, sizeof(int), compare);
-  ```
-  The high-level language provides built-in functions like qsort().
+int arr[] = {5, 2, 9, 1, 5, 6};
+qsort(arr, 6, sizeof(int), compare);
+```
+The high-level language provides built-in functions like qsort().
 
 5. Memory Management
-  - Assembly language
-    - Full control, but requires manual memory handling.
-  - High-level language
-    - Uses automatic memory management (e.g., garbage collection in Python,
-      C#).
+- Assembly language
+  - Full control, but requires manual memory handling.
+- High-level language
+  - Uses automatic memory management (e.g., garbage collection in Python, C#).
 
-  Example:
-    - Assembly: Manually allocate stack or heap memory.
-    - C: Uses malloc(), free().
-    - Python: Uses automatic garbage collection.
+Example:
+  - Assembly: Manually allocate stack or heap memory.
+  - C: Uses malloc(), free().
+  - Python: Uses automatic garbage collection.
 
 
 
