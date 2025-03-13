@@ -304,3 +304,164 @@ Here, `jz exit` jumps to exit if the result of sub rax, 5 is zero.
 |Segment Registers        |CS, DS, SS, FS, GS                 |Define memory segments (legacy)       |
 |Flags Register           |RFLAGS (ZF, CF, OF, SF, DF, IF)    |Store status flags for CPU operation  |
 
+
+### Memory Segments in x86-64 Architecture
+In x86-64, memory is divided into different segments to manage program
+execute efficiently. These segments include:
+
+1. Code Segment (Text Segment)
+2. Data Segment
+3. Stack Segment
+4. Heap Segment
+Each segment has a specific purpose in organizing program execution, data
+storage, and memory allocation.
+
+#### 1. Code Segment (Text Segment)
+ - Contains: Executable instructions (machine code ) of the program
+ - Memory Characteristics:
+  - Usually read-only to prevent accindental modification.
+  - Typically shared among processes to save memory.
+ - Accessed via: Instruction Pointer (RIP) register.
+
+ - [x] Example: Code Segment in Assembly
+ ```assembly
+ section .text
+   global _start
+ 
+ _start:
+   mov rax, 60     ; syscall: exit
+   xor rdi, rdi    ; exit status 0
+   syscall         ; execute system call
+ ```
+ Here, `_start` is in the code segment or `section .text`, and the CPU
+ executes the instructions from here.
+
+#### 2. Data Segment
+ - Contains: Global and static variables.
+ - Divided into:
+  - Initialzed Data Segment: Stores global/static variables with initial
+    values
+  - BSS(Block Started by Symbol): Stores uninitialized global/static
+    variables
+ - Memory Characteristics:
+  - Read/write access.
+  - Statically allocated (does not grow dynamically).
+
+ - [x] Example: Data Segment in Assembly
+ ```assembly
+ section .data
+   msg db "Hello, World!", 0     ; Initializes String
+   num dd 10                     ; Initialize Integer
+ 
+ section .bss
+   buffer resb 64                ; Reserve 64 byte (uninitialized)
+ ```
+ - `msg` and `num` are in the **initialized data segment**.
+ - `buffer` is in the **BSS segment**.
+
+#### 3. Stack Segment
+ - Contains: Function call frames, local variables, and return addresses.
+ - Managed by: Stack Pointer (RSP) and Base Pointer (RBP).
+ - Memory Characteristics:
+  - **Last In, First Out (LIFO)** structure.
+  - Grows **downword** (from higher to lower memory addresses).
+  - Automatically allocated and deallocated.
+
+ - [x] Example: Using the Stack in Assembly
+ ```assembly
+ section .text
+   global _start
+ 
+ _start:
+   push 10           ; Push value 10 onto stack
+   push 20           ; Push value 20 onto stack
+   pop rax           ; Pop top value (20) into rax
+   pop rbx           ; Pop next value (10) into rbx
+ 
+   mov rax, 60
+   xor rdi, rdi
+   syscall
+ ```
+ - `push` stores values on the **stack**.
+ - `pop` retrieves values in **LIFO** order.
+
+ - [x] Example: Stack Overflow (x86-64 Assembly)
+ A stack overflow occurs when too much data is pushed onto the stack,
+ exceeding its allocated size, leading to a crash. This ofthen happens in
+ deep recursion or excessive local variable usage.
+
+ - [x] Recursive Function Causing Stack Overflow
+ ```assembly
+ section .text
+  global _start
+
+ _start:
+  call recurse      ; Call function (stack grows infinitely)
+
+  mov rax, 60
+  xor rdi, rdi
+  syscall
+
+ recurse:
+  sub rsp, 8        ; Allocate 8 bytes on stack (local variable)
+  call recurse      ; Revursive call ( no exit condition)
+  add rsp, 8        ; Clean up stack (unreachable)
+  ret
+ ```
+ - **Explanation**:
+  - Each recursive `call recurse` pushes a new stack frame.
+  - **No base condition** means recursion runs indefinitely.
+  - Eventually, the **stack overflows**, causing a segmentation fault.
+ - **How to prevent stack overflow?**
+  - Limit recursion depth.
+  - Use heap allocation for large data.
+  - Check stack size before recursion.
+
+#### 4. Heap Segment
+ - **Contains**: Dynamically allocated memory (`malloc`, `new` in C/C++).
+ - **Grows**: **Upward** (from lower to higher memory addresses).
+ - **Managed by**: The **OS and memory allocator**.
+ - **Memory Characteristics**:
+  - Used for dynamic memory allocation.
+  - Must be manually frees to avoid memory leaks.
+
+ - [x] Example: Allocating Heap Memory in C
+ ```c
+ #include <stdio.h>
+ #include <stdlib.h>
+
+ int main() {
+  int *ptr = (int*) malloc(sizeof(int));  // Allocate heap memory
+  *ptr = 42;                              // Store value
+  printf("%d\n", *ptr);
+  free(ptr);                              // Free allocated memory
+  return 0
+ }
+ ```
+ - `malloc()` allocates memory in the **heap**.
+ - `free()` releases it to **prevent memory leaks**.
+
+#### 5. Summary Table
+
+|Segment      |Purpose                                |Access       |Growth Direction       |
+|-------------|---------------------------------------|-------------|-----------------------|
+|Code (Text)  |Stores executable instructions         |Read-only    |Fixed                  |
+|Data         |Stores global/static variables         |Read/Write   |Fixed                  |
+|Stack        |Stores function calls, local variables |Read/Write   |Downward (high &  low) |
+|Heap         |Stores dynamically allocated memory    |Read/Write   |Upward (low & high)    |
+
+#### 6. Stack vs. Heap: Key Differences
+
+|Feature     |Stack                             |Heap                                  |
+|------------|----------------------------------|--------------------------------------|
+|Usage       |Function calls, local variables   |Dynamic memory allocation             |
+|Allocation  |Automatic (compiler-managed)      |Manual (`malloc`/`free`)              |
+|Size Limit  |Limited (small)                   |Large (but requires proper management |
+|Speed       |Fast                              |Slower                                |
+|Growth      |Downward                          |Upward                                |
+
+#### 7. Conclusion
+ - The **code segment** contains **executable instructions**.
+ - The **data segment** store **global/static variables**.
+ - The **stack segment** handles **function calls and local variables**.
+ - The **heap segment** is used for **dynamic memory allocation**.
