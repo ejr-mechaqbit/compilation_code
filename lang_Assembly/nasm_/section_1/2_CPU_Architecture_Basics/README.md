@@ -501,3 +501,47 @@ storage, and memory allocation.
  - The **data segment** store **global/static variables**.
  - The **stack segment** handles **function calls and local variables**.
  - The **heap segment** is used for **dynamic memory allocation**.
+
+### Endianness: Little Endian vs Big Endian
+**Endianness** refers to the order in which bytes are stored in memory. It
+affects how multi-byte data types (e.g., 16-bit, 32-bit, 64-bit values) are
+representation in memory.
+
+#### Litte Endian vs Big Endian
+
+|Endianness      |Byte Order (Memory Representation)                                        |
+|----------------|--------------------------------------------------------------------------|
+|Litte Endian    |Least Significant Byte (LSB) stored first (at the lowest memory address). |
+|Big Endian      |Most Significant Byte (MSB) stored first (at the lowest memory address)   |
+
+- **Example: 32-bit Number (0x12345678)**
+ - **Little Endian (LSB First)**
+  - Stored in memory as:
+  ```
+  Address:  0x100  0x101  0x102  0x103
+    Value:  0x78   0x56   0x34   0x12
+  ```
+ - **Big Endian (MSB First)**
+  - Stored in memory as:
+  ```
+  Address:  0x100  0x101  0x102  0x103
+    Value:  0x12   0x34   0x56   0x78
+  ```
+
+#### Where Endianness Matters
+
+|Scenerio             |Impact                                                                                                |
+|---------------------|------------------------------------------------------------------------------------------------------|
+|Networking (TCP/IP)  |Uses big-endian (network byte order). Systems must convert data accordingly.                          |
+|File Formats         |Some formats (e.g., BMP, WAV) store data in little-endian, while others (JPEG, PNG) use big-endian.   |
+|Cross-Platform Code  |Code must handle endianness when exchanging binary data between different architectures.              |
+|Memory Inspection    |Debugging tools show raw memory, so understanding endianness helps interpret data correctly.          |
+
+#### Summary
+
+|Aspect               |Little Endian                      |Big Endian                                   | 
+|---------------------|-----------------------------------|---------------------------------------------|
+|Byte Order           |LSB first                          |MSB first                                    |
+|Example (0x12345678) |78 56 34 12                        |12 34 56 78                                  |
+|Used in              |x86, AMD64, ARM (default)          |Network protocols, IBM Power, older systems  |
+|Conversion           |`bswap`, bitwise shifts, `htonl()` |`ntohl()`                                    |
