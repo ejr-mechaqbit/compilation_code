@@ -385,12 +385,12 @@ storage, and memory allocation.
  - `push` stores values on the **stack**.
  - `pop` retrieves values in **LIFO** order.
 
- - [x] Example: Stack Overflow (x86-64 Assembly)
+ - [x] **Example: Stack Overflow (x86-64 Assembly)**
  A stack overflow occurs when too much data is pushed onto the stack,
  exceeding its allocated size, leading to a crash. This ofthen happens in
  deep recursion or excessive local variable usage.
 
- - [x] Recursive Function Causing Stack Overflow
+ - [x] **Recursive Function Causing Stack Overflow**
  ```assembly
  section .text
   global _start
@@ -441,11 +441,41 @@ storage, and memory allocation.
  - `malloc()` allocates memory in the **heap**.
  - `free()` releases it to **prevent memory leaks**.
 
- - [x] Example: Heap Allocation in Assembly (x86-64 Linux)
+ - [x] **Example: Heap Allocation in Assembly (x86-64 Linux)
  In Assembly, heap memory is allocated using the `brk` or `mmap` system
- calls.
+ calls**.
 
- - [x] Allocating and Freeing Heap Memory
+ - [x] **Allocating and Freeing Heap Memory**
+ ```assembly
+ section .text
+  global _start
+  extern brk          ; Use brk syscall for heap allocation
+
+ _start:
+  mov rax, 12         ; syscall: brk
+  mov rdi, 0          ; Get current program break
+  syscall
+
+  mov rdi, rax        ; Store current break in rdi
+  add rdi, 4096       ; Increase heap size by 4096 bytes (4KB)
+  mov rax, 12         ; syscall: brk
+
+  ; Now heap memor is allocated
+  ; Example: Store a value at the new heap memory location
+  mov byte [rdi], 42  ; Store 42 at the first allocated byte
+
+  mov rax, 60         ; syscall: exit
+  xor rdi, rdi
+  syscall
+ ```
+ - **Explanation**:
+  - `brk(0)` fetches the current heap end.
+  - `brk(new_addr)` extends the heap.
+  - `mov byte [rdi], 42` stores a value at the allocated memory.
+ - **How to properly manage heap memory?**
+  - Always **free memory** when done.
+  - Use `mmap()` for large allocations.
+  - Avoid **memory leaks** by tracking allocated memory.
 
 #### 5. Summary Table
 
