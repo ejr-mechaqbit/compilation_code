@@ -11,7 +11,7 @@
   3. **Link it to create an executable**
   4. **Run the executable**
 
- #### - [x] Writing a Simple Asembly Program
+ #### - Writing a Simple Asembly Program
   Let's write a "Hello, World!", program in **x86-64 Assembly(Linux, NASM
   syntax)**.
 
@@ -36,7 +36,7 @@
    syscall            ; system call
  ```
 
- #### - [x] Compiling the Assembly Code
+ #### - Compiling the Assembly Code
   Use the **NASM assembler** and the **GCC linker or ld** to compile.
 
  ```bash
@@ -59,7 +59,7 @@
  Hello, World!
  ```
 
- #### - [x] Writing an Assembly Program with Input (Reading from User)
+ #### - Writing an Assembly Program with Input (Reading from User)
   We use the read syscall to get user input.
 
  **input.asm**
