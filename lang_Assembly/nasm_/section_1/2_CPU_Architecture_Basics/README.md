@@ -441,6 +441,12 @@ storage, and memory allocation.
  - `malloc()` allocates memory in the **heap**.
  - `free()` releases it to **prevent memory leaks**.
 
+ - [x] Example: Heap Allocation in Assembly (x86-64 Linux)
+ In Assembly, heap memory is allocated using the `brk` or `mmap` system
+ calls.
+
+ - [x] Allocating and Freeing Heap Memory
+
 #### 5. Summary Table
 
 |Segment      |Purpose                                |Access       |Growth Direction       |
