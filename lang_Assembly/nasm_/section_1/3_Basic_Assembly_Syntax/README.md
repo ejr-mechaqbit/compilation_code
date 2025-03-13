@@ -11,7 +11,7 @@
   3. **Link it to create an executable**
   4. **Run the executable**
 
- #### - Writing a Simple Asembly Program
+ #### Writing a Simple Asembly Program
   Let's write a "Hello, World!", program in **x86-64 Assembly(Linux, NASM
   syntax)**.
 
@@ -36,7 +36,7 @@
    syscall            ; system call
  ```
 
- #### - Compiling the Assembly Code
+ #### Compiling the Assembly Code
   Use the **NASM assembler** and the **GCC linker or ld** to compile.
 
  ```bash
@@ -59,7 +59,7 @@
  Hello, World!
  ```
 
- #### - Writing an Assembly Program with Input (Reading from User)
+ #### Writing an Assembly Program with Input (Reading from User)
   We use the read syscall to get user input.
 
  **input.asm**
@@ -130,7 +130,7 @@
  |`.bss`      |Uninitialized data   |Read/Write  |Space for variables without initial values |
 
  #### 2. Explanation of Each Section
-  - **`.text` (Code Section)**
+  **`.text` (Code Section)**
    - Contains the **executable instructions** of the program
    - Marked as **read-only** in many operating systems.
    - Always contains the program's **entry point** (_start).
@@ -145,7 +145,7 @@
      syscall
    ```
 
-  - **`.data` (Initialized Data Section)**
+  **`.data` (Initialized Data Section)**
    - Stores **constants and initialized variables** (global/static).
    - Read/write memory, but values are **predefined**.
    - Useful for **strings, counters, and predefined numbers**.
@@ -173,7 +173,7 @@
     - `db` (define byte) stores a string.
     - `equ` defines a constant (message length).
 
-  - **`.bss` (Uninitialized Data Section)**
+  **`.bss` (Uninitialized Data Section)**
    - Reserves memory for **variables without initial values**.
    - Used for **buffers, arrays, and dynamic storage**.
    - Faster that `.data` because memory isn't initialized at program start.
