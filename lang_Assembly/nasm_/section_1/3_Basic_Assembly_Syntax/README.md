@@ -309,5 +309,16 @@
  |Instructions   |CPU operations                 |`mov`,`add`,`cmp`,`jmp` |
  |Comments       |Notes for readability          |`; This is a comment`   |
 
+### Basic Data Types in x86-64 Assembly (NASM Syntax)
+ In x86-64 assembly, **data types** are based on size rather than high-level
+ concepts like integers or floating points. The most common types are
+ **bytes words, double words, and quad words**.
 
+ #### 1. Common Data Types in x86-64
+ |Data type|Size(Bits) |Size(Bytes) |NASM Keyword | Example |
+ |----------|----------|----------|----------|----------|
+ |Byte |8 bits |1 byte |`db` (define byte) |`dd 0x41` |
+ |Word |16 bits |2 bytes |`dw` (define word) |`dw 0x1234` |
+ |Double Word |32 bits |4 bytes |`dd` (define double word) | `dd 0x12345678` |
+ |Quad Word |64 bits |8 bytes |`dq` (define quad word) | `dq 0x123456789ABCDEF0` |
 
