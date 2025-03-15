@@ -309,3 +309,5 @@
  |Instructions   |CPU operations                 |`mov`,`add`,`cmp`,`jmp` |
  |Comments       |Notes for readability          |`; This is a comment`   |
 
+
+
