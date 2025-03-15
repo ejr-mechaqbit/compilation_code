@@ -200,3 +200,112 @@
     - `resb 100` reserves **100 bytes** for input.
     - No initial value is assigned.
 
+### Labels, Instructions, and Comments in Assembly (x86-64 NASM Syntax)
+ In **x86-64 Assembly**, programs are structured using **labels,
+ instructions, and comments** for readability and execution control.
+
+ #### 1. Labels (`_start`, loops, function names)
+  **Labels** act as named locations in code and are used for:
+  - Marking the **entry point** (`_start`)
+  - **Looping and branching** (`jmp`, `je`, `jne`, `call`)
+  - Defining **functions** in assembly
+
+  - [x] Example: **Using Labels for Flow Control**
+  ```assembly
+  section .text
+    global _start
+
+  _start:
+    mov rax, 5      ; Store 5 in rax
+    mov rbx, 0      ; Counter (initialize to 0)
+
+  loop_start:
+    add rbx, 1      ; Increment counter
+    cmp rbx, rax    ; Compare counter with 5
+    jne loop_start  ; Jump back if not equal
+
+    mov rax, 60     ; syscall: exit
+    xor rdi, rdi    
+    syscall
+  ```
+  - **Explanation:**
+  - `_start:` **(Program entry point)**
+  - `loop_start:` **(Loop label)**
+  - `jne loop_start` **Jumps back** to `loop_start` if `rbx != rax`
+
+#### 2. Instructions (Operations like `mov`, `add`, `cmp`, `jmp`)
+ **Instructions** tell the CPU what to do.
+
+  **Common Instruction Categories**
+  |Type           |Example Instructions                     |Description
+  |---------------|-----------------------------------------|--------------------------
+  |Data Movement  |`mov`, `lea`, `push`, `pop`              |Load, store, and move data     |
+  |Arithmetic     |`add`, `sub`, `mul`, `div`, `inc`, `dec` |Perform math operations        |
+  |Logical        |`and`, `or`, `xor`, `not`, `test`        |Perform bitwise operations     |
+  |Control Flow   |`jmp`, `je`, `jne`, `call`, `ret`        |Change execution flow          |
+  |Comparison     |`cmp`, `test`                            |Compare values for conditions  |
+  |Syscalls       |`syscall`                                |Invoke OS system calls         |
+
+  - [x] Example: **Using Instructions**
+  ```assembly
+  section .text
+    global _start
+
+  _start:
+    mov rax, 10       ; Store 10 in rax
+    mov rbx, 5        ; Store 5 in rbx
+    add rax, rbx      ; rax = rax + rbx equivalent (10 + 5)
+
+    cmp rax, 20       ; Compare rax with 20
+    je equal          ; Jump to "equal" if rax == 20
+
+    mov rax, 60       ; syscall: exit
+    xor rdi, rdi      
+    syscall
+
+  equal:
+    mov rax, 60       ; syscall: exit
+    mov rdi, 1        ; Exit code 1
+    syscall
+  ```
+  - **Explanation:**
+  - `add rax, rbx` **(Adds: `rax` + `rbx`)**
+  - `cmp rax, 20` **(Compares `rax` with 20)**
+  - `je equal` **(Jumps to equal if `rax == 20`)**
+
+#### 3. Comments ( ';' for single-line, '%if' for macros)
+ - **Single-line comments** use `;`
+ - **Multi-line comments** use `%%if 0 ... %%endif` (for macros)
+
+ - [x] Example: **Using Comments**
+ ```assembly
+ section .data
+   message db "Hello, Assembly!", 0
+   msg_len equ $ - message
+
+ section .text
+   global _start
+
+ _start:
+   mov rax, 1         ; syscall: write
+   mov rdi, 1         ; file descriptor: stdout
+   mov rsi, message   ; pointer to message
+   mov rdx, msg_len   ; message length
+   syscall            ; system call
+
+   mov rax, 60        ; syscall: exit
+   xor rdi, rdi       ; exit code 0
+   syscall            ; system call
+ ```
+ - **Key Points:**
+ - `;` is used for **single-line comments**
+ - `message db "Hello, Assembly!", 0` **stores a string with a newline**
+
+#### 4. Summary
+
+ |Concept        |Description                    |Example                 |
+ |---------------|-------------------------------|------------------------|
+ |Labels         |Named locations for code flow  |`_start:`,`loop_start:` |
+ |Instructions   |CPU operations                 |`mov`,`add`,`cmp`,`jmp` |
+ |Comments       |Notes for readability          |`; This is a comment`   |
+
