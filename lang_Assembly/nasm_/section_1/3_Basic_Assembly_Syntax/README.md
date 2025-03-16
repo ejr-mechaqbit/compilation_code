@@ -322,3 +322,126 @@
  |Double Word |32 bits |4 bytes |`dd` (define double word) | `dd 0x12345678` |
  |Quad Word |64 bits |8 bytes |`dq` (define quad word) | `dq 0x123456789ABCDEF0` |
 
+ #### 2. NASM Data Type Definitions
+
+  NASM provides the following **directives** for declaring data:
+ |Directive|Meaning|Size|
+ |----------|----------|----------|
+ |`db` |Define byte(8-bit) |1 byte|
+ |`dw` |Define word(16-bit) |2 bytes |
+ |`dd` |Define double word(32-bit) |4 bytes|
+ |`dq` |Define quad word(64-bit) |8 bytes |
+ |`dt` |Define ten bytes(80-bit) |10 bytes (for FPU) |
+
+ - [x] Example: **Declaring Different Data Types**
+ ```assembly
+ section .data
+   myByte     dd  0x41                  ; 1 byte (ASCII 'A')
+   myWord     dw  0x1234                ; 2 bytes (16-bit value)
+   myDWord    dd  0x12345678            ; 4 bytes (32-bit value)
+   myQWord    dq  0x123456789ABCDEF0    ; 8 bytes (64-bit value)
+ ```
+
+ #### 3. Memory Layout of Different Data Types
+  Assuming `myDWord dd 0x12345678` is stored in **little-endian format**:
+ 
+ ```
+ Memory Address  Value (Hex)
+ ---------------------------
+ 0x1000          78
+ 0x1001          56
+ 0x1002          34
+ 0x1003          12
+ ```
+ - **Little-endian** mains **LSB (least significant byte) is stored first**.
+ 
+ #### 4. Accessing Different Data Sizes in Registers
+  In x86-64, registers have different sizes that match data types.
+
+ |Register |Size |Example Data Type |
+ |----------|----------|----------|
+ |`al`,`bl`,`cl`,`dl` |8-bit |Byte (`db`) |
+ |`ax`,`bx`,`cx`,`dx` |16-bit | Word (`dw`) |
+ |`eax`,`ebx`,`ecx` |32-bit |Double word (dd) |
+ |`rax`,`rbx`,`rcx` |64-bit |Quad word (`dq`) |
+
+ - [x] Example: **Moving Different Data Types into Registers**
+ ```assembly
+ section .data
+   myByte   db  0x41                ; 1 byte
+   myWord   dw  0x1234              ; 2 bytes
+   myDWord  dd  0x12345678          ; 4 bytes
+   myQWord  dq  0x12345678ABCDEF0   ; 8 bytes
+ 
+ section .text
+   global _start
+
+ _start:
+   mov al, [myByte]       ; Load 8-bit value into al
+   mov ax, [myWord]       ; Load 16-bit value into ax
+   mov eax, [myDWord]     ; Load 32-bit value into eax
+   mov rax, [myQWord]     ; Load 64-bit value into rax
+
+   mov rax, 60
+   xor rdi, rdi
+   syscall
+ ```
+ - **Notes:**
+ - `mov al, [myByte]` (Loads **1 byte** into al)
+ - `mov eax, [myDWord]` (Loads **4 bytes** into eax (zero-extends to 64-bit
+   in rax).
+ - `mov rax, [myQWord]` (Loads **8 bytes** into rax)
+
+ #### 5. Using Different Data Types in Arithmetic Operations
+  
+  - [x] Example: **Adding Different-Sized Numbers**
+  ```assembly
+  section .data
+    num1  db  10          ; 1 byte (8-bit)
+    num2  dw  1000        ; 2 bytes (16-bit)
+    num3  dd  50000       ; 4 bytes (32-bit)
+    num4  dq  1000000     ; 8 bytes (64-bit)
+
+  section .text
+    global _start
+
+  _start:
+    mov al, [num1]        ; Load 8-bit number
+    add al, 5             ; al = 10 + 5
+
+    mov ax, [num2]        ; Load 16-bit number
+    add ax, 500           ; ax = 1000 + 500
+
+    mov eax, [num3]       ; Load 32-bit number
+    add eax, 25000        ; eax = 50000 + 25000
+
+    mov rax, [num4]       ; Load 64-bit number
+    add rax, 500000       ; rax = 100000 + 500000
+
+    mov rax, 60           ; syscall: exit
+    xor rdi, rdi
+    syscall
+  ```
+
+  - [x] **Output in Registers**:
+  |----------|----------|
+  |`al =`  |15(10 + 5) |
+  |`ax =`  |1500(1000 + 500) |
+  |`eax =` |75000(50000 + 25000) |
+  |`rax =` |1500000(1000000 + 500000) |
+
+ #### 6. Summary Table
+ |Data Type |Size |NASM Keyword |Example Declaration |Register Example |
+ |-----|-----|-----|-----|-----|
+ |Byte |1 byte (8-bit) |`db` |`myByte db 0x41` |`mov al, [myByte]` |
+ |Word |2 bytes (16-bit) |`dw` |`myWord dw 0x1234` |`mov ax, [myWord]` |
+ |Double Word |4 bytes (32-bit) |`dd` |`myDWord dd 0x12345678` |`mov eax, [myDWord]` |
+ |Quad Word |8 bytes (64-bit) |`dq` |`myQWord dq 0x123456789ABCDEF0` | `mov rax, [myQWord]` |
+
+ #### 7. Key Takeaways
+  - **Bytes (8-bit)** are for **characters**(`db`).
+  - **Words (16-bit)** are for **short integers**(`dw`).
+  - **Double Words (32-bit)** are for **standard integers**(`dd`).
+  - **Quad Words (64-bit)** are for **large integers & addresses**(`dq`).
+  - Data is stored in **little-endian** format in x86-64.
+
