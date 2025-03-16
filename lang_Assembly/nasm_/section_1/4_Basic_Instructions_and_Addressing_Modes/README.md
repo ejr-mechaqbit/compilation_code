@@ -238,7 +238,9 @@
     syscall
   ```
   **Signed vs Unsigned Multiplication**
+
   |Operation  |Signed(imul) |Unsigned (mul) |
+  |-----|-----|-----|
   |`mov rax, -5` `imul rbx, rax, 7`  |-35(correct)  |Undefined result  |
   |`mov rax, 5` `imul rbx, rax, -7`  |-35(correct)  |Undefined result  |
   |`mov rax, 5` `mul rbx`  |Correct(positive)   |Correct(positive)  |
