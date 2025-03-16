@@ -116,11 +116,12 @@
     - Linux
     - macOS
     - BSD
+
   **Register Usage**
-    - **First six integer arguments**: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9`
-    - **Floating-point arguments**: Passed in `XMM0-XMM7`
-    - **Return value**: `rax` (and `rdx` if needed for 128-bit values)
-    - **Stack alignment**: Must be **16-bit aligned** before **CALL**
+   - **First six integer arguments**: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9`
+   - **Floating-point arguments**: Passed in `XMM0-XMM7`
+   - **Return value**: `rax` (and `rdx` if needed for 128-bit values)
+   - **Stack alignment**: Must be **16-bit aligned** before **CALL**
 
   - Example: **Function with Two Arguments**
   ```assembly
