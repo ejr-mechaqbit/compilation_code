@@ -424,6 +424,7 @@
   ```
 
   - [x] **Output in Registers**:
+  |Register |Value After Operation |
   |----------|----------|
   |`al =`  |15(10 + 5) |
   |`ax =`  |1500(1000 + 500) |
