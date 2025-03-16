@@ -339,10 +339,9 @@
   - `jz` (jump if zero) Prevents division by zero error.
 
  ### Summary
-  #### Basic Assembly Syntax
+  Basic Instruction and Addressing Modes
 
-  - Writing and Compiling Assembly Code
-  - Directives (.text, .data, .bss)
-  - Labels, Instructions, and Comments
-  - Basic Data Types (Bytes, Words, Double Words, Quad Words)
+  - `mov`, `add`, `sub`, `mul`, and `div`
+  - Immediate, Register, Direct, and Indirect Addressing
+  - Working with Constants and Variables
 

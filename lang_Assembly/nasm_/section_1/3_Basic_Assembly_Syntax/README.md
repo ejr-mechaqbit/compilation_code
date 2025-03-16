@@ -445,3 +445,11 @@
   - **Quad Words (64-bit)** are for **large integers & addresses**(`dq`).
   - Data is stored in **little-endian** format in x86-64.
 
+ ### Summary
+  #### Basic Assembly Syntax
+
+  - Writing and Compiling Assembly Code
+  - Directives (.text, .data, .bss)
+  - Labels, Instructions, and Comments
+  - Basic Data Types (Bytes, Words, Double Words, Quad Words)
+

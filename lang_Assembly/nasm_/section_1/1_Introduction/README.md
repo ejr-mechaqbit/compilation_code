@@ -282,6 +282,15 @@ Example:
   - C: Uses malloc(), free().
   - Python: Uses automatic garbage collection.
 
+## Summary
+### Introduction to Assembly Language
 
-
+  - What is Assembly?
+  - Role of Assemblers:
+    - NASM
+    - MASM
+    - GAS
+    - FASM
+  - Relationship between Assembly and Machine Code
+  - Assembly vs. High-Level language
 

@@ -545,3 +545,11 @@ representation in memory.
 |Example (0x12345678) |78 56 34 12                        |12 34 56 78                                  |
 |Used in              |x86, AMD64, ARM (default)          |Network protocols, IBM Power, older systems  |
 |Conversion           |`bswap`, bitwise shifts, `htonl()` |`ntohl()`                                    |
+
+### CPU Architecture Basics
+
+ - x86-64 Architecture Overview
+ - Registers (General Purpose, Special Purpose, Segment and Flags)
+ - Memory Segments (Code, Data, Stack, Heap)
+ - Endiannes (Little-endian vs. Big-endian)
+
