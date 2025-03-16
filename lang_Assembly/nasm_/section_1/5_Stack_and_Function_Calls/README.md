@@ -158,12 +158,11 @@
     - Windows API
 
   **Register Usage**
-    - **First fout integer arguments**: `rcx`, `rdx`, `r8`, `r9`
-    - **Floating-point argumnets**: Passed in `XMM0-XMM3`
-    - **Return values**: `rax`
-    - **Stack alignment**: **16-byte aligned before `CALL`**
-    - **Caller cleans up the stack** (Unlike Windows 32-bit stdcall, which
-      used cleanup)
+   - **First four integer arguments**: `rcx`, `rdx`, `r8`, `r9`
+   - **Floating-point argumnets**: Passed in `XMM0-XMM3`
+   - **Return values**: `rax`
+   - **Stack alignment**: **16-byte aligned before `CALL`**
+   - **Caller cleans up the stack** (Unlike Windows 32-bit stdcall, which used cleanup)
   
   - Example: **Function with Two Arguments**
   ```assembly
