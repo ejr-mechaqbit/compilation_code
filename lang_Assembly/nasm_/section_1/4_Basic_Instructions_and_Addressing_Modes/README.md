@@ -245,3 +245,104 @@
   |`mov rax, 5` `imul rbx, rax, -7`  |-35(correct)  |Undefined result  |
   |`mov rax, 5` `mul rbx`  |Correct(positive)   |Correct(positive)  |
 
+  **Signed Division**
+   The `idiv` (Integer Division) instruction performs **signed division**,
+   handling both positive and negative numbers correctly using two's
+   complement representation.
+
+  - **1. `idiv` Syntax**
+  ```assembly
+  idiv operand
+  ```
+   - **Divides** the **signed** value in `rdx:rdx` by `operand`.
+   - **Quotient** is stored in `rax`.
+   - **Remainder** is stored in `rdx`.
+
+  - **2. Example: Signed Division Without Remainder**
+  - [x] Dividing -50 by 5
+  ```assembly
+  section .data
+    dividend dq -50
+    divisor dq 5
+
+  section .bss
+    quotient resq 1
+    remainder resq 1
+
+  section .text
+    global _start
+
+  _start:
+    mov rax, [dividend]     ; Load -50 into rax
+    cqo                     ; Sign-extend rax into rdx:rax
+    idiv qword [divisor]    ; rax = rdx:rax /divisor
+    mov [quotient], rax     ; Store quotient (-10)
+    mov [remainder], rdx    ; Store remainder (0)
+
+    mov rax, 60             ; syscall: exit
+    xor rdi, rdi
+    syscall
+  ```
+  **Explanation**
+  - `cqo` is a Sign-extends rax into rdx:rax.
+  - `idiv qword [divisor]` is a rax = -50 / 5 that means quotient = -10 and
+    remainder = 0.
+
+  - **3. Example: Signed Division with Remainder**
+  
+  - [x] Dividing -50 by 7
+  ```assembly
+  section .data
+    dividend dq -50
+    divisor dq 7
+
+  section .bss
+    quotient resq 1
+    remainder resq 1
+
+  section .text
+    global _start
+
+  _start:
+    mov rax, [dividend]
+    cqo
+    idiv qword [divisor]
+    mov [qoutient], rax       ; -50 / 7 = -7 (quotient)
+    mov [remainder], rdx      ; -50 % 7 = -1 (remainder)
+
+    mov rax, 60
+    xor rdi, rdi
+    syscall
+  ```
+  **Explanation**
+  - -50 / 7 = -7, remainder -1.
+
+  - **4. Example: Detecting Division By Zero**
+
+  - [x] Handling `idiv` Errors
+  ```assembly
+    mov rax, -50
+    mov rcx, 0                ; Divisor = 0 (invalid)
+    cqo
+    test rcx, rcx
+    jz division_error         ; Jump if divisor is zero
+    idiv rcx
+
+
+  division_error:
+    mov rax, 60
+    mov rdi, 1
+    syscall
+  ```
+  **Explanation**
+  - `test rcx, rcx` Checks if divisor is **zero**.
+  - `jz` (jump if zero) Prevents division by zero error.
+
+ ### Summary
+  #### Basic Assembly Syntax
+
+  - Writing and Compiling Assembly Code
+  - Directives (.text, .data, .bss)
+  - Labels, Instructions, and Comments
+  - Basic Data Types (Bytes, Words, Double Words, Quad Words)
+
